@@ -1,0 +1,64 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+
+<marquee behavior="" direction="" style="background-color: rgb(5, 5, 5); color: antiquewhite;">Shop for the Best Men & Women Clothing at Fashion Hub . Explore our wide range of Beauty, Ethnic Wear, Kids wear, Footwear</marquee>
+{% load static %}
+<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+       <img src="{% static 'shop/Slide1c.png' %}" height="450px" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'shop/slide2c.png' %}" height="450px" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'shop/slide3c.png' %}" height="450px" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div><br>
+  <center><h2>POPULAR BRANDS ☀️</h2></center><br>
+
+  <form action="/cart/cart" method="post">
+    {% csrf_token %}
+  <div class="row">
+    {% for i in shop %}
+    <div class="col-xl-3" id="d1">
+      <div class="card" style="width: 18rem;">
+      <img src="{{i.product_image.url}}"height="300px" card-img-top alt="...">
+        <div class="card-body">
+        <!-- <h5 class="card-title">{{i.product_id}}</h5> -->
+          <h4 class="card-text" style="color: rgb(0, 0, 0);">{{i.product_name}}</h4>
+         <select>  
+            <option value="">Qty</option>  
+            <option value="0">1</option>                                   
+            <option value="1">2</option>
+            <option value="2">3</option>
+            <option value="3">5</option>
+          </select> <br><br>
+    <!--      <select>
+          <option value="">Select Size</option>
+          <option value="">S</option>
+          <option value="">M</option>
+          <option value="">L</option>
+          <option value="">XL</option>
+          <option value="">XXL</option></select> -->
+          <h5 class="card-text">RS {{i.product_price}}</h5>
+          <button class="btn btn-primary" formaction="/shop/details" name="did" value="{{i.id}}">View Details</button> 
+          <button type="submit" name="pid" class="btn btn-primary" value="{{i.id}}">Add To Cart</button>
+      <!--   <button formaction="/apple/apple"  class="btn btn-primary">Explore More</button> -->
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    </div>
+  </form>
+{% endblock %}

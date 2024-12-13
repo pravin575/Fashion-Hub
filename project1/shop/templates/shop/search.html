@@ -1,0 +1,76 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    #A{
+      width: 300px;
+      margin-left: 35%;
+      margin-top: 5%;
+      background-color: black;
+      padding-top: 1%;
+      padding-left: 1%;
+      padding-bottom: 1%;
+      padding-right: 1%;
+      border-radius: 5px;
+    }
+  </style>
+</body>
+</html>
+
+
+<div id="A">
+<form class="d-flex" role="search" action="/shop/search" method="post">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="productname">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form></div>
+<br>
+{% if product %}
+
+<form method="post">
+  {% csrf_token %}
+<div class="row">
+    {% for i in product %}
+    <div class="col-xl-3" id="d1">
+      <div class="card" style="width: 18rem;">
+      <img src="{{i.product_image.url}}" height="350px"  class="card-img-top" alt="...">
+        <div class="card-body">
+        <!-- <h5 class="card-title">{{i.product_id}}</h5> -->
+          <p class="card-text">{{i.product_name}}</p>
+     <!--     <p class="card-text">{{i.product_desc}}</p> -->
+     <select>  
+      <option value="">Qty</option>  
+      <option value="0">1</option>                                   
+      <option value="1">2</option>
+      <option value="2">3</option>
+      <option value="3">5</option>
+    </select> <br><br>
+         <!-- <select>
+            <option value="">Select Size</option>
+          <option value="">S</option>
+          <option value="">M</option>
+          <option value="">L</option>
+          <option value="">XL</option>
+          <option value="">XXL</option></select> -->
+          <h5 class="card-text">RS {{i.product_price}}</h5>
+          <button class="btn btn-primary" formaction="/shop/details" name="did" value="{{i.id}}">View Details</button> 
+          <button class="btn btn-primary" formaction="/cart/cart" type="submit" name="pid" value="{{i.id}}">Add To Cart</button>
+      <!--   <button formaction="/apple/apple"  class="btn btn-primary">Explore More</button> -->
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    </div>
+  </form>
+{% endif %}
+
+{% endblock %}
