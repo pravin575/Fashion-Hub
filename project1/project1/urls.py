@@ -27,6 +27,7 @@ urlpatterns = [
     path('order/',include('checkout.urls')),
     path('reviews/', include('reviews.urls')),
     path('complaints/', include('complaints.urls')),
+     path("returns/", include("returns.urls")),
 ]
 
 
